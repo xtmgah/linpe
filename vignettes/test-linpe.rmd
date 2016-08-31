@@ -1,0 +1,32 @@
+---
+title: "Test linpe"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r, message = FALSE}
+require(dplyr)
+require(ggplot2)
+```
+
+Do something
+
+```{r}
+mtcars %>% 
+  tbl_df() %>%
+  group_by(cyl) %>%
+  summarise(n = n(), mean_mpg = mean(mpg), sd_mpg = sd(mpg))
+```  
+
+
+Plot something
+
+```{r}
+ggplot(mtcars, aes(disp, mpg)) + geom_point()
+```
+
+
