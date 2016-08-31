@@ -12,12 +12,12 @@ link(data, file, linpe = NULL, sep = "\\n")
 \item{file}{Character vector of length one pointing to a .rmd file location}
 
 \item{linpe}{Character vector of length one giving the name of the linpe (analysis). When `linpe=NULL` (default value),
-the name of the linpe is given  by the file name}
+the name of the linpe is deduced from the file name}
 
-\item{sep}{end of line character in teh `.rmd` file file. Default to "\n"}
+\item{sep}{end of line character in the `.rmd` file file. Default to "\n"}
 }
 \value{
-A dataframe with an analysis attribute linked to it
+A dataframe with a `linpe` attribute linked to it
 }
 \description{
 link
@@ -29,7 +29,7 @@ mtcars_linpe <- link (mtcars, file = file)
 attr(mtcars_linpe, "test-linpe")
 
 # analysis is saved with specific name
-mtcars_linpe <- link (mtcars, file, analysis = "this-analysis")
-attr(mtcars_linpe, "this-analysis")
+mtcars_linpe <- link (mtcars, file, linpe = "this-linpe")
+attr(mtcars_linpe, "this-linpe")
 }
 

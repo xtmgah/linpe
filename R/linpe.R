@@ -2,10 +2,10 @@
 #' @param data a data frame object
 #' @param file Character vector of length one pointing to a .rmd file location
 #' @param linpe Character vector of length one giving the name of the linpe (analysis). When `linpe=NULL` (default value),
-#' the name of the linpe is given  by the file name
-#' @param sep end of line character in teh `.rmd` file file. Default to "\n"
+#' the name of the linpe is deduced from the file name
+#' @param sep end of line character in the `.rmd` file file. Default to "\n"
 #'
-#' @return A dataframe with an analysis attribute linked to it
+#' @return A dataframe with a `linpe` attribute linked to it
 #' @export
 #'
 #' @examples
@@ -15,18 +15,16 @@
 #' attr(mtcars_linpe, "test-linpe")
 #'
 #' # analysis is saved with specific name
-#' mtcars_linpe <- link (mtcars, file, analysis = "this-analysis")
-#' attr(mtcars_linpe, "this-analysis")
+#' mtcars_linpe <- link (mtcars, file, linpe = "this-linpe")
+#' attr(mtcars_linpe, "this-linpe")
 
 link <- function(data , file, linpe = NULL, sep = "\n") {
 
   if(is.null(linpe)) {
-    linpe <- file
-    linpe <- gsub( "\\\\", "/", linpe)
+    linpe <- gsub( "\\\\", "/", file)
     linpe <- tail(unlist(strsplit(linpe,  split = "/"))  , 1)
     linpe <- head(unlist(strsplit(linpe,  split = ".", fixed = T)), 1)
   }
-
 
   file <- readLines(file)
   class(file) <- "linpe"
@@ -34,7 +32,7 @@ link <- function(data , file, linpe = NULL, sep = "\n") {
   data
 }
 #####################################################################
-#' enumerate
+#' linpe
 #'
 #' @param data a data frame object
 #'
@@ -43,9 +41,9 @@ link <- function(data , file, linpe = NULL, sep = "\n") {
 #'
 #' @examples
 #' data(mtcars_linpe)
-#' enumerate(mtcars_linpe)
-#' enumerate(mtcars)
-enumerate <- function(data){
+#' linpe(mtcars_linpe)
+#' linpe(mtcars)
+linpe <- function(data){
 
   data_name <- deparse(substitute(data))
   att <- lapply(attributes(data), class)
@@ -53,7 +51,6 @@ enumerate <- function(data){
 
   if (length(att) == 0) {
     cat(paste("No limpe in", data_name, "\n"))
-    #att <- invisible(NULL)
   }
   return(att)
 }
@@ -62,30 +59,31 @@ enumerate <- function(data){
 #'
 #' @param data a data framae object
 #' @param linpe the name of an `linpe` attribute previously saved with `link()`
+#' @param ... any parameter to be passed to function rmarkdown::render
 #'
-#' @return NULL and, as side effect, renders the `.rmd` file corresponding to teh analysis and display it in the default html viewer
+#' @return invisible(NULL) and, as side effect, renders the `.rmd` file corrensponding to the analysis and display it in the default html viewer
 #' @export
 #'
 #' @examples
 #' data(mtcars_linpe)
 #' perform(mtcars_linpe, "test-linpe")
-perform <- function(data, linpe){
+perform <- function(data, linpe, ...){
   file_rmd <- paste(linpe, "rmd", sep = ".")
   file_html <- paste(linpe, "html", sep = ".")
   rmd <- attr(data, linpe)
   writeLines(rmd , con = file_rmd)
-  rmarkdown::render(file_rmd)
+  rmarkdown::render(file_rmd, ...)
   viewer <- getOption("viewer")
   viewer(file_html)
   invisible(NULL)
 }
 #####################################################################
-#' perform
+#' display
 #'
 #' @param data a data frame object
 #' @param linpe the name of the linpe attribute previously saved with `link()`
 #'
-#' @return NULL and, as side effect, opens the `.rmd` file corresponding to the analysis
+#' @return invisible(NULL) and, as side effect, opens the `.rmd` linked to the linpe
 #' @export
 #'
 #' @examples

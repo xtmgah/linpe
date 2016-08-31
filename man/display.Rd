@@ -2,7 +2,7 @@
 % Please edit documentation in R/linpe.R
 \name{display}
 \alias{display}
-\title{perform}
+\title{display}
 \usage{
 display(data, linpe)
 }
@@ -12,10 +12,10 @@ display(data, linpe)
 \item{linpe}{the name of the linpe attribute previously saved with `link()`}
 }
 \value{
-NULL and, as side effect, opens the `.rmd` file corresponding to the analysis
+invisible(NULL) and, as side effect, opens the `.rmd` linked to the linpe
 }
 \description{
-perform
+display
 }
 \examples{
 data(mtcars_linpe)

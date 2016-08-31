@@ -4,15 +4,17 @@
 \alias{perform}
 \title{perform}
 \usage{
-perform(data, linpe)
+perform(data, linpe, ...)
 }
 \arguments{
 \item{data}{a data framae object}
 
 \item{linpe}{the name of an `linpe` attribute previously saved with `link()`}
+
+\item{...}{any parameter to be passed to function rmarkdown::render}
 }
 \value{
-NULL and, as side effect, renders the `.rmd` file corresponding to teh analysis and display it in the default html viewer
+invisible(NULL) and, as side effect, renders the `.rmd` file corrensponding to the analysis and display it in the default html viewer
 }
 \description{
 perform
