@@ -16,7 +16,6 @@
 #' # analysis is saved with specific name
 #' mtcars_linpe <- link (mtcars, file, linpe = "this-linpe")
 #' attr(mtcars_linpe, "this-linpe")
-
 link <- function(data , file, linpe = NULL) {
 
   if(is.null(linpe)) {
@@ -49,7 +48,6 @@ unlink <- function(data , linpe) {
   attr(data, linpe) <- NULL
   data
 }
-
 #####################################################################
 #' linpe
 #'
