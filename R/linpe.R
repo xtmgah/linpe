@@ -3,7 +3,6 @@
 #' @param file Character vector of length one pointing to a .rmd file location
 #' @param linpe Character vector of length one giving the name of the linpe (analysis). When `linpe=NULL` (default value),
 #' the name of the linpe is deduced from the file name
-#' @param sep end of line character in the `.rmd` file file. Default to "\n"
 #'
 #' @return A dataframe with a `linpe` attribute linked to it
 #' @export
@@ -18,7 +17,7 @@
 #' mtcars_linpe <- link (mtcars, file, linpe = "this-linpe")
 #' attr(mtcars_linpe, "this-linpe")
 
-link <- function(data , file, linpe = NULL, sep = "\n") {
+link <- function(data , file, linpe = NULL) {
 
   if(is.null(linpe)) {
     linpe <- gsub( "\\\\", "/", file)
@@ -31,6 +30,26 @@ link <- function(data , file, linpe = NULL, sep = "\n") {
   attr(data, linpe) <- file
   data
 }
+####################################################################
+#' unlink
+#' @param data a data frame object
+#' @param linpe Character vector of length one giving the name of the linpe (analysis)
+#'
+#' @return A dataframe with a `linpe` attribute removed from it
+#' @export
+#'
+#' @examples
+#' file <- paste(find.package("linpe"), "rmd/test-linpe.rmd", sep = "/")
+#' mtcars_linpe <- link (mtcars, file = file)
+#' linpe(mtcars_linpe)
+#' mtcars_linpe <- unlink (mtcars_linpe, linpe = "test-linpe")
+#' linpe(mtcars_linpe)
+#'
+unlink <- function(data , linpe) {
+  attr(data, linpe) <- NULL
+  data
+}
+
 #####################################################################
 #' linpe
 #'

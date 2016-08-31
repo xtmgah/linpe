@@ -4,7 +4,7 @@
 \alias{link}
 \title{link}
 \usage{
-link(data, file, linpe = NULL, sep = "\\n")
+link(data, file, linpe = NULL)
 }
 \arguments{
 \item{data}{a data frame object}
@@ -13,8 +13,6 @@ link(data, file, linpe = NULL, sep = "\\n")
 
 \item{linpe}{Character vector of length one giving the name of the linpe (analysis). When `linpe=NULL` (default value),
 the name of the linpe is deduced from the file name}
-
-\item{sep}{end of line character in the `.rmd` file file. Default to "\n"}
 }
 \value{
 A dataframe with a `linpe` attribute linked to it
